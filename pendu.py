@@ -35,8 +35,7 @@ MOTS = [
     "thermodynamique", "desoxyhemoglobine", "bioaccumulations", "instrumentalismes", "neurodeveloppement", "dematerialisation", "pluridisciplinaires", "anticonstitutionnel", "microspectrometrie", "contreproductivite", "bioluminescences", "desapprobations",
 ]
 
-# CORRECTION : les mots sont rangés selon leur VRAIE longueur et sans accents
-# (ainsi "forêt" se joue avec la lettre "e", et chaque longueur contient les bons mots)
+
 mots_par_longueur = {}
 for _mot in MOTS:
     _mot = sans_accents(_mot.lower())
@@ -127,8 +126,6 @@ def lettres_positions(mot):
     return dico
 
 def erreurs_pendu(canvas):
-    # CORRECTION : cette fonction ne fait que dessiner. La fenêtre "perdu" est
-    # ouverte uniquement dans verifier_lettre() (avant, elle s'ouvrait 2 fois).
     if compteur_erreur == 1:
         canvas.create_line(170, 100, 170, 125, width=2)  # corde
     elif compteur_erreur == 2:
@@ -164,10 +161,9 @@ def pendu(fenetre_jeu, canvas):
         lettre = sans_accents(entrée.get().lower())
         entrée.delete(0, tk.END)
 
-        # CORRECTION : on ignore une entrée vide ou qui n'est pas une lettre
         if lettre == "" or not (lettre.isascii() and lettre.isalpha()):
             return
-        # CORRECTION : une lettre déjà jouée (trouvée ou ratée) ne coûte rien
+
         if lettre in lettres_pas_bon or lettre in mot_à_remplir:
             return
 
@@ -224,10 +220,9 @@ def ouvrir_regles():
     label3.pack(pady=8)
     label4.pack(pady=10)
 
-    # CORRECTION : taille du bouton raisonnable (avant height=20 et pady=210 sortaient de l'écran)
     boutonfermer_règles = tk.Button(regles, text="Retour au menu", font=("Comic Sans MS", 20), command=regles.destroy, width=20, height=2, bg='thistle1', relief='flat')
     boutonfermer_règles.pack(pady=40)
-    # CORRECTION : suppression de regles.mainloop() (la boucle principale tourne déjà)
+
 
 
 def indice():
@@ -236,7 +231,7 @@ def indice():
     lettres_restantes = [l for l in dico_lettres_positions if l not in mot_à_remplir]
     if not lettres_restantes:
         return
-    # CORRECTION : un seul label d'indice, mis à jour (avant : un nouveau label à chaque clic)
+
     label_indice.config(text=random.choice(lettres_restantes))
 
 ###########################################################################################################
